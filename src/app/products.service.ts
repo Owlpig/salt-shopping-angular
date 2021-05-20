@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import p from '../products.json';
 
@@ -5,11 +6,12 @@ import p from '../products.json';
   providedIn: 'root'
 })
 export class ProductsService {
+  productUrl = '../products.json'
   getProducts() {
-    return p.products
+    return this.http.get(this.productUrl)
   }
   getProduct(id: string) {
     return p.products.find(p => p.id === id)
   }
-  constructor() { }
+  constructor(private http: HttpClient) { }
 }

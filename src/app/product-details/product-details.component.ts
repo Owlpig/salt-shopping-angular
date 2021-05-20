@@ -11,7 +11,7 @@ import { ProductsService } from '../products.service';
 export class ProductDetailsComponent implements OnInit {
   cart: Array<any> = []
   product = {id:'', item:'', price:'', description:''}
-  private cookieValue: string = ''
+  cookieValue?: string
 
   constructor(
     private route: ActivatedRoute,
@@ -27,7 +27,8 @@ export class ProductDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.cookieValue = this.cookieService.get('cart')
-    this.cart = JSON.parse(this.cookieValue)
+    console.log(this.cookieValue)
+    this.cart = this.cookieValue ? JSON.parse(this.cookieValue) : []
     const id = this.route.snapshot.paramMap.get('id')
     const prod = id !== null ? this.service.getProduct(id) : undefined
     if (prod !== undefined) { this.product = prod } 
