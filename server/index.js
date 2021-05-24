@@ -9,7 +9,7 @@ const port = 5000;
 const apiRouter = require('./db');
 
 app.use(express.json());
-app.use('/api', apiRouter);
+app.use('/', apiRouter);
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
 });

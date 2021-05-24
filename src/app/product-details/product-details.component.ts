@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+// import { CookieService } from 'ngx-cookie-service';
 import { ProductsService } from '../products.service';
+import { Product } from '../product'
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-product-details',
@@ -9,8 +11,8 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent implements OnInit {
-  cart: Array<any> = []
-  product = {id:'', item:'', price:'', description:''}
+  cart: Array<Product> = []
+  product: Product = {id:'', item:'', price:'', description:''}
   preProd: any
   cookieValue?: string
 
@@ -18,12 +20,14 @@ export class ProductDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private service: ProductsService,
-    private cookieService: CookieService
+    private cartService: CartService
+    // private cookieService: CookieService
   ) { }
-  addToCart(prod: any) {
-    this.cart.push(prod)
-    this.cookieService.set('cart', JSON.stringify(this.cart));
-    window.location.reload();
+  addToCart(prod: Product) {
+    this.cartService.updateCart(prod).subscribe(item => console.log(item))
+    // this.cart.push(prod)
+    // this.cookieService.set('cart', JSON.stringify(this.cart));
+    // window.location.reload();
   }
   getProduct(id:string) {
     this
@@ -36,9 +40,8 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.cookieValue = this.cookieService.get('cart')
-    console.log(this.cookieValue)
-    this.cart = this.cookieValue ? JSON.parse(this.cookieValue) : []
+    // this.cookieValue = this.cookieService.get('cart')
+    // this.cart = this.cookieValue ? JSON.parse(this.cookieValue) : []
     const id = this.route.snapshot.paramMap.get('id')
     if (id) this.getProduct(id)
   }

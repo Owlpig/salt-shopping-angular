@@ -42,9 +42,10 @@ router.delete('/cart', (req, res) => {
   if (db.has('cart').value()) {
     db.get('cart').remove({}).write()
   }
+  res.status(204)
 })
 
-router.delete('/cart', (req, res) => {
+router.delete('/cart/:id', (req, res) => {
   const id = req.params.id
   if (db.has('cart').value()) {
     db.get('cart').remove({id}).write();
