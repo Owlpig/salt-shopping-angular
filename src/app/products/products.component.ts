@@ -7,11 +7,23 @@ import { ProductsService } from '../products.service';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
-  products: Array<any> = this.prodservice.getProducts()
+  products: Array<any> = []
+  preProd: any
+  
+  allProducts() {
+    this
+      .prodservice
+      .getProducts()
+      .subscribe((data) => {
+        this.preProd = data
+        this.products = this.preProd
+      })
+  }
   
   constructor(private prodservice: ProductsService) { }
 
   ngOnInit(): void {
+    this.allProducts()
   }
 
 }

@@ -1,17 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import p from '../products.json';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  productUrl = '../products.json'
+  productUrl = 'http://localhost:8080/products'
   getProducts() {
     return this.http.get(this.productUrl)
   }
   getProduct(id: string) {
-    return p.products.find(p => p.id === id)
+    return this.http.get(this.productUrl + '/' + id)
   }
   constructor(private http: HttpClient) { }
 }

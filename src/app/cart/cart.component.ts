@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
     this.cookieValue = this.cookieService.get('cart')
-    this.cart = JSON.parse(this.cookieValue)
+    this.cart = this.cookieValue ? JSON.parse(this.cookieValue) : []
     this.cart.forEach(i => {this.total += parseFloat(i.price); console.log(this.total)})
   }
 

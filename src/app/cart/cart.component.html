@@ -1,4 +1,5 @@
-<p *ngIf='!cart'>You have no items</p>
+<h2>Your cart:</h2>
+<p *ngIf='cart.length === 0'>You have no items</p>
 <p *ngFor='let product of cart'>Item: {{product.item}} Price: {{product.price}}</p>
-<h3>Total: {{total}}</h3>
-<button *ngIf='cart' (click)='checkOut()'>Check out</button>
+<h3 *ngIf='cart.length > 0'>Total: {{total}}</h3>
+<button *ngIf='cart.length > 0' (click)='checkOut()'>Check out</button>
